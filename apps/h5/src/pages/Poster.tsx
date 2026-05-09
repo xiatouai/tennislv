@@ -3,19 +3,24 @@ import html2canvas from 'html2canvas';
 import QRCodeLib from 'qrcode';
 import { useApp } from '../store';
 
-function QRCodeImg() {
+function QRCodeImg({ onLoad }: { onLoad: () => void }) {
   const [src, setSrc] = useState<string | null>(null);
 
   useEffect(() => {
     QRCodeLib.toDataURL('https://tennislv.app', {
       width: 120,
       margin: 1,
-      color: { dark: '#000', light: '#fff' },
-    }).then(setSrc).catch(() => { /* fallback: no QR shown */ });
+      color: { dark: '#000000', light: '#ffffff' },
+    }).then(url => {
+      setSrc(url);
+      // onLoad called after React commits the img to DOM
+      setTimeout(onLoad, 100);
+    }).catch(() => { /* fallback */ });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (!src) return null;
-  return <img src={src} width="44" height="44" alt="扫码测测你的业余网球评级" />;
+  return <img src={src} width="52" height="52" alt="扫码测测你的业余网球评级" crossOrigin="anonymous" />;
 }
 
 export function Poster() {
@@ -23,9 +28,10 @@ export function Poster() {
   const r = state.ratingResult;
   const posterRef = useRef<HTMLDivElement>(null);
   const [imgUrl, setImgUrl] = useState<string | null>(null);
+  const [qrReady, setQrReady] = useState(false);
 
   useEffect(() => {
-    if (!posterRef.current || imgUrl) return;
+    if (!posterRef.current || !qrReady || imgUrl) return;
 
     html2canvas(posterRef.current, {
       scale: 2,
@@ -36,7 +42,7 @@ export function Poster() {
     }).catch(() => {
       // fallback: show the HTML poster
     });
-  }, [imgUrl]);
+  }, [qrReady, imgUrl]);
 
   if (!r) return null;
 
@@ -68,9 +74,8 @@ export function Poster() {
 
       {/* Footer */}
       <div className="ps-footer">
-        <div className="ps-cta">发给球友认证：偏低 / 准 / 偏高</div>
         <div className="ps-qr-area">
-          <div className="ps-qr"><QRCodeImg /></div>
+          <div className="ps-qr"><QRCodeImg onLoad={() => setQrReady(true)} /></div>
           <span className="ps-qr-hint">扫码测测你的<br/>业余网球评级</span>
         </div>
         <div className="ps-url">tennislv.app</div>
