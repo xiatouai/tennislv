@@ -89,6 +89,51 @@ function getSocialComment(level: string, _dims: DimensionScore[]): string {
   return '你的网球技术全面、战术成熟，在业余球友中很有竞争力。继续保持，享受高水平对抗的乐趣。';
 }
 
+function getCourtMessage(level: string): { cn: string; en: string } {
+  const levelNum = parseFloat(level) || 3.0;
+
+  if (levelNum <= 2.0) {
+    return {
+      cn: '每一拍都是开始，球场记得住你的脚步。',
+      en: 'Every shot is a beginning. The court remembers your footsteps.',
+    };
+  }
+  if (levelNum <= 2.5) {
+    return {
+      cn: '网球是一面镜子，你认真了，它就会回应你。',
+      en: 'Tennis is a mirror — take it seriously, and it answers back.',
+    };
+  }
+  if (levelNum <= 3.0) {
+    return {
+      cn: '在底线来回之间，找到属于你的节奏。',
+      en: 'Between the baseline rallies, find your own rhythm.',
+    };
+  }
+  if (levelNum <= 3.5) {
+    return {
+      cn: '稳定的每一拍，都是通向更好的自己的路。',
+      en: 'Every steady shot is a step toward a better you.',
+    };
+  }
+  if (levelNum <= 4.0) {
+    return {
+      cn: '战术不是书本上的，是你一拍一拍打出来的。',
+      en: 'Tactics aren\'t from a book — you earn them one shot at a time.',
+    };
+  }
+  if (levelNum <= 5.0) {
+    return {
+      cn: '真正的对手不是网对面的人，是昨天的自己。',
+      en: 'The real opponent isn\'t across the net — it\'s who you were yesterday.',
+    };
+  }
+  return {
+    cn: '网球从来不是目的，而是你表达自己的方式。',
+    en: 'Tennis is not the destination. It\'s how you express who you are.',
+  };
+}
+
 function getStrengths(dims: DimensionScore[]): string[] {
   const sorted = [...dims].sort((a, b) => b.score - a.score);
   const strengths: string[] = [];
@@ -268,6 +313,7 @@ export function mockRatingResult(
   const nextData = getNtrpLevel(nextLevel);
 
   const dimsResult = getDimensions(answers);
+  const courtMsg = getCourtMessage(level);
 
   const result: RatingResult = {
     ratingType,
@@ -286,6 +332,8 @@ export function mockRatingResult(
     socialComment: getSocialComment(level, dimsResult),
     strengths: getStrengths(dimsResult),
     focusArea: getFocusArea(dimsResult, level),
+    courtMessage: courtMsg.cn,
+    courtMessageEn: courtMsg.en,
     generatedAt: new Date().toISOString(),
   };
 

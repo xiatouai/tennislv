@@ -176,6 +176,10 @@ export interface RatingResult {
   questionnaireLevel?: string;
   /** 视频调整原因（仅 video_enhanced 时填充） */
   adjustmentReason?: string;
+  /** 球场寄语（中文） */
+  courtMessage: string;
+  /** 球场寄语（英文） */
+  courtMessageEn: string;
 }
 
 /** 评级提交请求 */

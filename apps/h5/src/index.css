@@ -318,35 +318,64 @@ body {
   font-size: 12px; font-weight: 500; margin-top: 6px;
   color: var(--g); background: var(--gl);
 }
-.sc-level-row { text-align: center; padding: 16px 0 8px; }
+.sc-subtitle { font-size: 13px; color: var(--t3); margin-top: 4px; }
+
+.sc-level-row { text-align: center; padding: 16px 0 4px; }
 .sc-level { font-size: 64px; font-weight: 800; color: var(--g); line-height: 1; letter-spacing: -3px; }
 .sc-nickname { font-size: 17px; font-weight: 600; color: var(--t); margin-top: 4px; }
 .sc-ntrp-label { font-size: 12px; color: var(--t3); margin-top: 2px; }
 
-.sc-comment {
-  font-size: 15px; font-weight: 500; color: var(--t);
-  text-align: center; padding: 10px 4px; line-height: 1.6;
+/* 适合约球 */
+.sc-range-row {
+  display: flex; justify-content: center; align-items: center; gap: 8px;
+  margin-top: 12px; padding: 10px 0;
+  border-top: 1px solid #f8f8f8; border-bottom: 1px solid #f8f8f8;
 }
+.sc-range-label { font-size: 13px; color: var(--t2); }
+.sc-range-value { font-size: 14px; font-weight: 600; color: var(--t); }
 
-.sc-tags { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin: 8px 0 4px; }
-.sc-tag {
-  background: var(--gl); color: var(--g);
-  padding: 5px 14px; border-radius: 14px;
-  font-size: 13px; font-weight: 500;
+/* 球场寄语 */
+.sc-court {
+  text-align: center; padding: 28px 8px;
+  margin: 16px 0;
+  background: linear-gradient(180deg, rgba(7,193,96,.03) 0%, rgba(7,193,96,.06) 50%, rgba(7,193,96,.03) 100%);
+  border-radius: 12px;
+  position: relative;
 }
-
-.sc-info { font-size: 14px; color: var(--t); padding: 8px 0; }
-.sc-info-row { display: flex; justify-content: space-between; padding: 8px 0; border-top: 1px solid #f8f8f8; }
-.sc-info-label { color: var(--t2); font-size: 13px; }
+.sc-court::before {
+  content: '';
+  position: absolute; top: 0; left: 20%; right: 20%;
+  height: 1px; background: linear-gradient(90deg, transparent, var(--gl), transparent);
+}
+.sc-court::after {
+  content: '';
+  position: absolute; bottom: 0; left: 20%; right: 20%;
+  height: 1px; background: linear-gradient(90deg, transparent, var(--gl), transparent);
+}
+.sc-court-cn {
+  font-size: 18px; font-weight: 600; color: var(--t);
+  line-height: 1.6; letter-spacing: .5px;
+  max-width: 18em; margin: 0 auto;
+}
+.sc-court-en {
+  font-size: 14px; font-style: italic; font-weight: 400;
+  color: var(--t3); margin-top: 10px;
+  line-height: 1.5; max-width: 22em; margin-left: auto; margin-right: auto;
+}
 
 .sc-cta {
-  text-align: center; font-size: 14px; color: var(--t2);
-  padding: 16px 0 4px; border-top: 1px solid #f2f2f2;
-  margin-top: 10px; font-weight: 500;
+  text-align: center; font-size: 16px; font-weight: 600; color: var(--t);
+  padding: 14px 0 6px; margin-top: 4px;
 }
-.sc-qr { text-align: center; padding: 8px 0 2px; }
-.sc-qr-hint { font-size: 11px; color: var(--t3); display: block; margin-top: 4px; }
-.sc-footer { text-align: center; font-size: 11px; color: var(--t4); padding-top: 10px; line-height: 1.5; }
+.sc-peer-hint {
+  text-align: center; font-size: 13px; color: var(--t3);
+  padding: 2px 0 8px;
+}
+.sc-domain {
+  text-align: center; font-size: 13px; font-weight: 500; color: var(--t2);
+  padding: 8px 0 2px; letter-spacing: .3px;
+}
+.sc-footer { text-align: center; font-size: 11px; color: var(--t4); padding-top: 4px; padding-bottom: 4px; line-height: 1.5; }
 
 /* ── Peer Verify ── */
 .pv-card {
@@ -434,8 +463,20 @@ body {
 .ps-nickname { font-size: 18px; font-weight: 600; opacity: .85; margin-top: 4px; }
 .ps-ntrp-label { font-size: 11px; opacity: .5; margin-top: 2px; }
 .ps-range { display: inline-block; background: rgba(255,255,255,.18); padding: 6px 18px; border-radius: 20px; font-size: 14px; margin-top: 8px; }
-.ps-tags { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; padding: 0 0 14px; position: relative; z-index: 1; }
+.ps-tags { display: none; }
 .ps-tag { background: rgba(255,255,255,.15); padding: 5px 14px; border-radius: 14px; font-size: 13px; }
+.ps-court {
+  text-align: center; padding: 20px 8px; margin: 0 0 10px;
+  position: relative; z-index: 1;
+}
+.ps-court-cn {
+  font-size: 18px; font-weight: 600; opacity: .95;
+  line-height: 1.6; letter-spacing: .5px;
+}
+.ps-court-en {
+  font-size: 13px; font-style: italic; font-weight: 400;
+  opacity: .65; margin-top: 8px; line-height: 1.5;
+}
 .ps-comment { font-size: 13px; opacity: .75; text-align: center; padding: 0 4px 14px; line-height: 1.5; position: relative; z-index: 1; }
 .ps-divider { height: 1px; background: rgba(255,255,255,.15); margin: 0 0 14px; position: relative; z-index: 1; }
 .ps-footer { text-align: center; padding: 14px 0 4px; position: relative; z-index: 1; }

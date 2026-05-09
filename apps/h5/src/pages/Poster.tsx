@@ -56,16 +56,13 @@ export function Poster() {
         <div className="ps-range">适合约球：{r.suitableRange}</div>
       </div>
 
-      <div className="ps-tags">
-        {r.styleTags.map(t => (
-          <span key={t} className="ps-tag">{t}</span>
-        ))}
+      <div className="ps-court">
+        <div className="ps-court-cn">"{r.courtMessage}"</div>
+        <div className="ps-court-en">{r.courtMessageEn}</div>
       </div>
 
-      <div className="ps-comment">{r.socialComment}</div>
-
       <div className="ps-footer">
-        <div className="ps-cta">你也来测测你是几级网球选手？</div>
+        <div className="ps-cta">我测出来是 {r.aiEstimatedLevel}，你觉得准吗？</div>
         <div className="ps-url">tennislv.app</div>
         <div className="ps-qr-area">
           <div className="ps-qr"><QRCode /></div>
