@@ -1,0 +1,16 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/upload/upload",
+    "pages/analysis/analysis",
+    "pages/report/report"
+  ],
+  "window": {
+    "navigationBarBackgroundColor": "#1aad19",
+    "navigationBarTitleText": "AI网球教练",
+    "navigationBarTextStyle": "white",
+    "backgroundColor": "#f5f5f5"
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

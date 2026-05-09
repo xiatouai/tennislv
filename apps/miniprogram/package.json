@@ -1,0 +1,16 @@
+{
+  "name": "@tennis/miniprogram",
+  "version": "0.1.0",
+  "private": true,
+  "description": "AI 网球教练微信小程序",
+  "scripts": {
+    "build": "tsc",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "@tennis/shared": "workspace:*"
+  },
+  "devDependencies": {
+    "typescript": "^5.5.0"
+  }
+}

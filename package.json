@@ -1,0 +1,16 @@
+{
+  "name": "tennis-ai-coach",
+  "version": "0.1.0",
+  "private": true,
+  "description": "AI 网球教练微信小程序 — monorepo",
+  "scripts": {
+    "dev:api": "pnpm --filter @tennis/api dev",
+    "build:api": "pnpm --filter @tennis/api build",
+    "build:shared": "pnpm --filter @tennis/shared build",
+    "lint": "pnpm -r lint",
+    "clean": "pnpm -r clean"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
