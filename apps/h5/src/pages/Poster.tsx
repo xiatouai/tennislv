@@ -1,3 +1,5 @@
+import { useEffect, useRef, useState } from 'react';
+import html2canvas from 'html2canvas';
 import { useApp } from '../store';
 
 function QRCode() {
@@ -21,48 +23,89 @@ function QRCode() {
 export function Poster() {
   const { state, goTo } = useApp();
   const r = state.ratingResult;
+  const posterRef = useRef<HTMLDivElement>(null);
+  const [imgUrl, setImgUrl] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!posterRef.current || imgUrl) return;
+
+    html2canvas(posterRef.current, {
+      scale: 2,
+      backgroundColor: null,
+      useCORS: true,
+    }).then(canvas => {
+      setImgUrl(canvas.toDataURL('image/png'));
+    }).catch(() => {
+      // fallback: show the HTML poster
+    });
+  }, [imgUrl]);
+
   if (!r) return null;
+
+  const posterContent = (
+    <div className="poster" ref={posterRef}>
+      <div className="ps-top">
+        <div className="ps-brand">TennisLV</div>
+        <div className="ps-cn">业余网球评级</div>
+      </div>
+
+      <div className="ps-level-area">
+        <div className="ps-level">{r.aiEstimatedLevel}</div>
+        <div className="ps-nickname">{r.nickname}</div>
+        <div className="ps-ntrp-label">参考 NTRP 风格等级</div>
+        <div className="ps-range">适合约球：{r.suitableRange}</div>
+      </div>
+
+      <div className="ps-tags">
+        {r.styleTags.map(t => (
+          <span key={t} className="ps-tag">{t}</span>
+        ))}
+      </div>
+
+      <div className="ps-comment">{r.socialComment}</div>
+
+      <div className="ps-footer">
+        <div className="ps-cta">你也来测测你是几级网球选手？</div>
+        <div className="ps-url">tennislv.app</div>
+        <div className="ps-qr-area">
+          <div className="ps-qr"><QRCode /></div>
+          <span className="ps-qr-hint">扫码生成你的业余网球评级卡</span>
+        </div>
+      </div>
+
+      <div className="ps-disclaimer">
+        本评级参考 NTRP 能力描述生成，不等同于 USTA 官方 NTRP、UTR 或赛事评级。
+      </div>
+    </div>
+  );
 
   return (
     <div className="poster-page fade-in">
       <button className="ps-close" onClick={() => goTo('share')}>✕</button>
 
-      <div className="poster">
-        <div className="ps-top">
-          <div className="ps-brand">TennisLV</div>
-          <div className="ps-cn">业余网球评级</div>
-        </div>
-
-        <div className="ps-level-area">
-          <div className="ps-level">{r.aiEstimatedLevel}</div>
-          <div className="ps-nickname">{r.nickname}</div>
-          <div className="ps-ntrp-label">参考 NTRP 风格等级</div>
-          <div className="ps-range">适合约球：{r.suitableRange}</div>
-        </div>
-
-        <div className="ps-tags">
-          {r.styleTags.map(t => (
-            <span key={t} className="ps-tag">{t}</span>
-          ))}
-        </div>
-
-        <div className="ps-comment">{r.socialComment}</div>
-
-        <div className="ps-footer">
-          <div className="ps-cta">你也来测测你是几级网球选手？</div>
-          <div className="ps-url">tennislv.app</div>
-          <div className="ps-qr-area">
-            <div className="ps-qr"><QRCode /></div>
-            <span className="ps-qr-hint">扫码生成你的业余网球评级卡</span>
-          </div>
-        </div>
-
-        <div className="ps-disclaimer">
-          本评级参考 NTRP 能力描述生成，不等同于 USTA 官方 NTRP、UTR 或赛事评级。
-        </div>
+      {/* Hidden template for html2canvas — always rendered first */}
+      <div style={{ position: 'absolute', left: '-9999px', top: 0 }}>
+        {posterContent}
       </div>
 
-      <div className="ps-save-hint">长按或截图保存海报</div>
+      {/* Display: image (long-press saveable) or fallback to HTML */}
+      <div style={{ padding: '20px 0' }}>
+        {imgUrl ? (
+          <>
+            <img
+              src={imgUrl}
+              alt="TennisLV 业余网球评级海报"
+              style={{ width: 375, display: 'block', borderRadius: 8 }}
+            />
+            <div className="ps-save-hint">长按图片保存海报</div>
+          </>
+        ) : (
+          <>
+            {posterContent}
+            <div className="ps-save-hint">长按或截图保存海报</div>
+          </>
+        )}
+      </div>
     </div>
   );
 }
