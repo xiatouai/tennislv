@@ -108,15 +108,6 @@ export function Result() {
         </div>
       )}
 
-      {/* 查看详细技术分析 */}
-      <button
-        className="r-detail-toggle"
-        onClick={() => setShowDetail(!showDetail)}
-      >
-        查看详细评级依据
-        <span className={`r-detail-arrow${showDetail ? ' open' : ''}`}>▾</span>
-      </button>
-
       <div className={`r-detail${showDetail ? ' open' : ''}`}>
         {r.dimensions.map(d => {
           const sl = scoreLabel(d.score);
@@ -142,7 +133,10 @@ export function Result() {
 
       {/* 球友认证预览 */}
       <div className="card" style={{ marginTop: 12 }}>
-        <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 8, color: 'var(--t)' }}>球友认证</div>
+        <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 4, color: 'var(--t)' }}>球友认证</div>
+        <div style={{ fontSize: 12, color: 'var(--t3)', marginBottom: 10, lineHeight: 1.5 }}>
+          邀请打过球的朋友评价你的评级是否准确。
+        </div>
         <div style={{ display: 'flex', justifyContent: 'center', gap: 12 }}>
           <span style={{ fontSize: 13, color: 'var(--t3)' }}>偏低了</span>
           <span style={{ fontSize: 20, fontWeight: 700, color: 'var(--t2)' }}>
@@ -166,22 +160,25 @@ export function Result() {
 
       {/* Actions */}
       <div className="r-actions">
-        <button className="btn btn-primary" onClick={() => goTo('share')}>
-          生成分享卡
+        <button className="btn btn-primary" onClick={() => goTo('poster')}>
+          生成分享海报
         </button>
-        <button className="btn btn-outline" onClick={() => goTo('verify')}>
-          发给球友看看准不准
+        <button className="btn btn-outline" onClick={() => goTo('verify')} style={{ marginTop: 8 }}>
+          球友认证
         </button>
+        <div className="text-link" onClick={() => setShowDetail(!showDetail)}>
+          查看详细评级依据{showDetail ? ' ▴' : ' ▾'}
+        </div>
+        <div className="text-link" onClick={() => { window.location.href = 'https://wj.qq.com/s2/26606149/5bb4/'; }}>
+          反馈评级是否准确
+        </div>
         {r.ratingType === 'questionnaire_estimate' && (
           <div className="text-link" onClick={() => goTo('video')}>
             上传视频提升置信度
           </div>
         )}
         <div className="text-link" onClick={resetAll}>
-          重新评级
-        </div>
-        <div className="text-link" onClick={() => { window.location.href = 'https://wj.qq.com/s2/26606149/5bb4/'; }}>
-          觉得评级不准？点这里反馈
+          重新测一次
         </div>
       </div>
     </div>

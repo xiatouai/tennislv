@@ -1,7 +1,7 @@
 import { useApp } from '../store';
 
 export function ShareCard() {
-  const { state, goTo } = useApp();
+  const { state, goTo, resetAll } = useApp();
   const r = state.ratingResult;
   if (!r) return null;
 
@@ -36,22 +36,24 @@ export function ShareCard() {
         </div>
 
         {/* CTA */}
-        <div className="sc-cta">{r.ctaText}</div>
+        <div className="sc-cta">发给球友认证：偏低 / 准 / 偏高</div>
         <div className="sc-domain">tennislv.app</div>
       </div>
 
       {/* Share actions */}
       <div className="r-actions" style={{ marginTop: 12 }}>
-        <button className="btn btn-primary" onClick={() => goTo('verify')}>
-          发给球友看看准不准
+        <button className="btn btn-primary" onClick={() => goTo('poster')}>
+          生成分享海报
         </button>
-        <button className="btn btn-outline" onClick={() => goTo('poster')} style={{ marginTop: 8 }}>
-          生成海报图片
+        <button className="btn btn-outline" onClick={() => goTo('verify')} style={{ marginTop: 8 }}>
+          球友认证
         </button>
         <div className="share-hint">
           点击右上角 ··· 可分享链接卡片给好友。海报图片需保存后发朋友圈或微信群。
         </div>
-        {/* WeChat JS-SDK reserved for future custom share card config */}
+        <div className="text-link" onClick={resetAll}>
+          重新测一次
+        </div>
         <div className="text-link" onClick={() => goTo('result')}>
           ← 返回评级结果
         </div>

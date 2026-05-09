@@ -395,7 +395,7 @@ body {
 }
 
 .sc-cta {
-  text-align: center; font-size: 16px; font-weight: 600; color: var(--t);
+  text-align: center; font-size: 13px; font-weight: 400; color: var(--t3);
   padding: 18px 0 8px;
 }
 .sc-domain {
@@ -520,7 +520,7 @@ body {
 }
 
 .ps-footer { text-align: center; padding: 8px 0 4px; position: relative; z-index: 1; }
-.ps-cta { font-size: 14px; opacity: .85; margin-bottom: 8px; }
+.ps-cta { font-size: 11px; opacity: .55; margin-bottom: 10px; }
 .ps-url { font-size: 12px; opacity: .55; margin-bottom: 12px; letter-spacing: .3px; }
 .ps-qr-area { display: flex; justify-content: center; align-items: center; gap: 8px; }
 .ps-qr { width: 48px; height: 48px; background: #fff; border-radius: 6px; display: flex; align-items: center; justify-content: center; }
