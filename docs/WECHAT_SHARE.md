@@ -1,5 +1,18 @@
 # 微信分享卡片配置
 
+## 重要：链接卡片 vs 图片海报
+
+微信内置浏览器的分享行为有明确区分：
+
+| 分享方式 | 发送内容 | 能否点击跳转网页 |
+|---------|---------|----------------|
+| 右上角 ··· 分享给好友 | 链接卡片（标题+描述+缩略图） | 能 |
+| 右上角 ··· 分享到朋友圈 | 链接卡片 | 能 |
+| 保存海报图片后发朋友圈 | 纯图片 | **不能** |
+| 保存海报图片后发微信群 | 纯图片 | **不能** |
+
+**结论：分享海报图片无法实现点击跳转网页。** 如需引流到 TennisLV，应引导用户使用右上角分享链接卡片，海报作为辅助传播素材。
+
 ## 当前状态
 
 OG（Open Graph）meta 标签已配置在 `apps/h5/index.html`，微信内置浏览器读取 `og:title`、`og:description`、`og:image`、`og:url` 生成分享卡片。
@@ -11,13 +24,13 @@ OG（Open Graph）meta 标签已配置在 `apps/h5/index.html`，微信内置浏
 | og:image | https://tennislv.app/share-cover.png (500×500) |
 | og:url | https://tennislv.app |
 
-如需动态分享卡片（结果页展示个性化评级），需要接入微信 JS-SDK。
+当前无需 JS-SDK 即可正常显示分享卡片。如需**动态分享卡片**（展示个性化评级结果），需要接入微信 JS-SDK。
 
 ## 正式接入微信 JS-SDK 的步骤
 
 ### 1. 前置条件
 
-- 拥有**已认证的微信公众号或服务号**（个人订阅号不支持 JS-SDK）
+- 拥有**已认证的微信公众号**（个人订阅号不支持 JS-SDK）
 - 在公众号后台 → 公众号设置 → 功能设置 → 配置 **JS 接口安全域名**（即 tennislv.app）
 - 将 `MP_verify_*.txt` 文件放入 `apps/h5/public/` 目录
 
@@ -60,7 +73,6 @@ GET /api/wechat/js-signature?url=<当前页面URL>
 - 格式：JPG 或 PNG（微信对 SVG 支持有限，建议用 PNG）
 - 大小：< 300KB
 - 路径：`apps/h5/public/share-cover.png`
-- og:image 改为 `https://tennislv.app/share-cover.png`
 
 ### 5. 调试
 

@@ -74,7 +74,7 @@ export function Poster() {
         <div className="ps-cta">发给球友认证：偏低 / 准 / 偏高</div>
         <div className="ps-qr-area">
           <div className="ps-qr"><QRCode /></div>
-          <span className="ps-qr-hint">扫码生成你的业余网球评级卡</span>
+          <span className="ps-qr-hint">扫码测测你的业余网球评级</span>
         </div>
       </div>
     </div>

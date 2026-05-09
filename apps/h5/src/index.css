@@ -330,10 +330,22 @@ body {
 .r-actions .btn + .btn { margin-top: 8px; }
 .r-actions .text-link + .text-link { margin-top: 4px; }
 
-/* ── Share hint ── */
+/* ── Share hints ── */
 .share-hint {
   text-align: center; font-size: 12px; color: var(--t3);
   padding: 10px 8px 0; line-height: 1.6;
+}
+
+.share-action-desc {
+  text-align: center; font-size: 12px; color: var(--t3);
+  padding: 6px 8px 0; line-height: 1.6;
+}
+
+.share-wechat-hint {
+  text-align: center; font-size: 12px; color: var(--t4);
+  padding: 14px 8px 0; line-height: 1.6;
+  margin-top: 8px;
+  border-top: 1px solid #f0f0f0;
 }
 
 /* ── Share Card (identity card) ── */
