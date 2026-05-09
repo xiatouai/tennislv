@@ -64,7 +64,7 @@ export function Poster() {
 
       {/* 球场寄语 — serif fonts, main emotional element */}
       <div className="ps-court">
-        <div className="ps-court-cn">"{r.courtMessage}"</div>
+        <div className="ps-court-cn">「{r.courtMessage}」</div>
         <div className="ps-court-en">{r.courtMessageEn}</div>
       </div>
 

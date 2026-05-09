@@ -31,7 +31,7 @@ export function ShareCard() {
 
         {/* 球场寄语 */}
         <div className="sc-court">
-          <div className="sc-court-cn">"{r.courtMessage}"</div>
+          <div className="sc-court-cn">「{r.courtMessage}」</div>
           <div className="sc-court-en">{r.courtMessageEn}</div>
         </div>
 

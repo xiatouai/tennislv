@@ -87,49 +87,87 @@ function getSocialComment(level: string, _dims: DimensionScore[]): string {
   return '你的网球技术全面、战术成熟，在业余球友中很有竞争力。继续保持，享受高水平对抗的乐趣。';
 }
 
-function getCourtMessage(level: string): { cn: string; en: string } {
+interface CourtQuote {
+  cn: string;
+  en: string;
+}
+
+const COURT_QUOTES_BEGINNER: CourtQuote[] = [
+  { cn: '不用急着赢球，先学会让球多停留一拍。', en: 'Do not rush to win; learn to keep the ball alive one more shot.' },
+  { cn: '最开始的每一次回球，都是和球场建立关系。', en: 'Every early return is how you build a relationship with the court.' },
+  { cn: '你不需要立刻强大，只需要比上一拍更稳定。', en: 'You do not need to be strong yet; just steadier than your last shot.' },
+  { cn: '很多进步，从一次不再慌张的挥拍开始。', en: 'Much of progress begins with one swing that is no longer rushed.' },
+  { cn: '网球的第一课，不是赢，而是认真打回去。', en: 'The first lesson in tennis is not winning, but returning with care.' },
+  { cn: '真正的进步，藏在下一次更稳的选择里。', en: 'Real progress lives in the next steadier choice.' },
+];
+
+const COURT_QUOTES_2_5: CourtQuote[] = [
+  { cn: '稳定不是突然出现的，它藏在一遍遍相同的准备里。', en: 'Consistency does not appear suddenly; it lives in repeated preparation.' },
+  { cn: '多打一拍，是业余网球最诚实的进步。', en: 'One more ball in play is the most honest progress in amateur tennis.' },
+  { cn: '少一次冒进，多一次站稳，水平就在慢慢上来。', en: 'One less rush, one steadier stance — that is how your level rises.' },
+  { cn: '真正的稳定，不是漂亮，而是每一拍都有交代。', en: 'True consistency is not beauty, but accountability in every shot.' },
+  { cn: '你开始懂得，网球不是打狠，而是打进。', en: 'You begin to learn: tennis is not about hitting harder, but hitting in.' },
+  { cn: '知道自己在哪一档，是进步的第一步。', en: 'Knowing your level is the first step to getting better.' },
+];
+
+const COURT_QUOTES_3_0: CourtQuote[] = [
+  { cn: '当你能稳定相持，网球就开始从动作变成判断。', en: 'When you can rally steadily, tennis begins to turn from motion into judgment.' },
+  { cn: '把球留在场内，是业余网球最朴素也最强的武器。', en: 'Keeping the ball in play is the simplest and strongest weapon in amateur tennis.' },
+  { cn: '多一拍稳定，少一次冒进，就是下一档的分水岭。', en: 'One steadier rally and one less rush — that is the line between levels.' },
+  { cn: '你打回去的不只是球，也是下一分的可能。', en: 'You are not just returning the ball; you are keeping the next point possible.' },
+  { cn: '真正的中级，不是会打好球，而是坏球也能处理。', en: 'Being intermediate is not just hitting good balls, but handling bad ones.' },
+  { cn: '能把节奏留住的人，才开始真正进入比赛。', en: 'Those who can hold the rhythm are the ones who truly enter the match.' },
+  { cn: '每一次上场，都是一次重新认识自己的机会。', en: 'Every time you step on court, you meet yourself again.' },
+];
+
+const COURT_QUOTES_3_5: CourtQuote[] = [
+  { cn: '当你开始控制落点，比赛就不只是来回，而是选择。', en: 'Once you control placement, tennis becomes more than rallies — it becomes choices.' },
+  { cn: '真正的进阶，是知道何时进攻，也知道何时多打一拍。', en: 'Real progress is knowing when to attack and when to play one more ball.' },
+  { cn: '稳定只是门票，判断才是通往下一档的路。', en: 'Consistency is the ticket; judgment is the road to the next level.' },
+  { cn: '高手不是每一拍都更猛，而是关键时刻更清醒。', en: 'Better players do not always hit harder; they stay clearer when it matters.' },
+  { cn: '能打多拍不难，难的是每一拍都有目的。', en: 'Rallying is one thing; playing every shot with purpose is another.' },
+  { cn: '网球的高级感，往往不是力量，而是分寸。', en: 'The elegance of tennis often lies not in power, but in measure.' },
+  { cn: '网球不会骗人，每一拍都会留下痕迹。', en: 'Tennis does not lie; every shot leaves a trace.' },
+];
+
+const COURT_QUOTES_4_0_PLUS: CourtQuote[] = [
+  { cn: '战术不是复杂，而是在正确的时机打正确的一拍。', en: 'Tactics are not complexity; they are the right shot at the right time.' },
+  { cn: '真正的控制力，是让比赛进入自己的节奏。', en: 'True control is making the match move at your rhythm.' },
+  { cn: '强者不是不失误，而是知道怎样让对手先失误。', en: 'Strong players do not avoid all errors; they know how to make opponents crack first.' },
+  { cn: '到了这个阶段，赢球靠的不只是技术，还有判断和耐心。', en: 'At this level, winning takes more than technique; it takes judgment and patience.' },
+  { cn: '每一拍都可以很快，但不是每一拍都需要很快。', en: 'Every shot can be fast, but not every shot needs to be.' },
+  { cn: '真正成熟的打法，是在锋芒和克制之间找到平衡。', en: 'A mature game finds balance between aggression and restraint.' },
+  { cn: '胜负会过去，留下的是下一次更好的判断。', en: 'Scores fade; what remains is better judgment for the next point.' },
+];
+
+function getCourtMessage(level: string, answers?: RatingAnswer[]): CourtQuote {
   const levelNum = parseFloat(level) || 3.0;
 
+  let pool: CourtQuote[];
   if (levelNum <= 2.0) {
-    return {
-      cn: '每一拍都是开始，球场记得住你的脚步。',
-      en: 'Every shot is a beginning. The court remembers your footsteps.',
-    };
+    pool = COURT_QUOTES_BEGINNER;
+  } else if (levelNum <= 2.5) {
+    pool = COURT_QUOTES_2_5;
+  } else if (levelNum <= 3.0) {
+    pool = COURT_QUOTES_3_0;
+  } else if (levelNum <= 3.5) {
+    pool = COURT_QUOTES_3_5;
+  } else {
+    pool = COURT_QUOTES_4_0_PLUS;
   }
-  if (levelNum <= 2.5) {
-    return {
-      cn: '网球是一面镜子，你认真了，它就会回应你。',
-      en: 'Tennis is a mirror — take it seriously, and it answers back.',
-    };
+
+  // Deterministic selection based on level + answer fingerprint
+  let seed = Math.round(levelNum * 10);
+  if (answers && answers.length > 0) {
+    for (const a of answers) {
+      const v = typeof a.value === 'string' ? a.value : a.value.join('');
+      for (let i = 0; i < v.length; i++) {
+        seed = (seed * 31 + v.charCodeAt(i)) | 0;
+      }
+    }
   }
-  if (levelNum <= 3.0) {
-    return {
-      cn: '在底线来回之间，找到属于你的节奏。',
-      en: 'Between the baseline rallies, find your own rhythm.',
-    };
-  }
-  if (levelNum <= 3.5) {
-    return {
-      cn: '稳定的每一拍，都是通向更好的自己的路。',
-      en: 'Every steady shot is a step toward a better you.',
-    };
-  }
-  if (levelNum <= 4.0) {
-    return {
-      cn: '战术不是书本上的，是你一拍一拍打出来的。',
-      en: 'Tactics aren\'t from a book — you earn them one shot at a time.',
-    };
-  }
-  if (levelNum <= 5.0) {
-    return {
-      cn: '真正的对手不是网对面的人，是昨天的自己。',
-      en: 'The real opponent isn\'t across the net — it\'s who you were yesterday.',
-    };
-  }
-  return {
-    cn: '网球从来不是目的，而是你表达自己的方式。',
-    en: 'Tennis is not the destination. It\'s how you express who you are.',
-  };
+  const idx = Math.abs(seed) % pool.length;
+  return pool[idx];
 }
 
 function getStrengths(dims: DimensionScore[]): string[] {
@@ -329,7 +367,7 @@ export function mockRatingResult(
   const nextData = getNtrpLevel(nextLevel);
 
   const dimsResult = getDimensions(answers);
-  const courtMsg = getCourtMessage(level);
+  const courtMsg = getCourtMessage(level, answers);
 
   const result: RatingResult = {
     ratingType,

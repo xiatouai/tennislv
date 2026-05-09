@@ -384,13 +384,15 @@ body {
   height: 1px; background: linear-gradient(90deg, transparent, rgba(7,193,96,.15), transparent);
 }
 .sc-court-cn {
-  font-size: 20px; font-weight: 600; color: var(--t);
-  line-height: 1.7; letter-spacing: 1px;
-  max-width: 16em; margin: 0 auto;
+  font-family: "Noto Serif SC", "Songti SC", "STSong", serif;
+  font-size: 20px; font-weight: 500; color: var(--t);
+  line-height: 1.8; letter-spacing: .02em;
+  max-width: 14em; margin: 0 auto;
 }
 .sc-court-en {
-  font-size: 14px; font-style: italic; font-weight: 400;
-  color: var(--t3); margin-top: 12px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 13px; font-style: italic; font-weight: 400;
+  color: var(--t3); margin-top: 14px; opacity: .75;
   line-height: 1.5; max-width: 22em; margin-left: auto; margin-right: auto;
 }
 
