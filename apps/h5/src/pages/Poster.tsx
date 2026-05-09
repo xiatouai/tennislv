@@ -68,12 +68,12 @@ export function Poster() {
 
       {/* Footer */}
       <div className="ps-footer">
-        <div className="ps-url">tennislv.app</div>
         <div className="ps-cta">发给球友认证：偏低 / 准 / 偏高</div>
         <div className="ps-qr-area">
           <div className="ps-qr"><QRCodeImg /></div>
-          <span className="ps-qr-hint">扫码测测你的业余网球评级</span>
+          <span className="ps-qr-hint">扫码测测你的<br/>业余网球评级</span>
         </div>
+        <div className="ps-url">tennislv.app</div>
       </div>
     </div>
   );
