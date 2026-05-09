@@ -1,23 +1,21 @@
 import { useEffect, useRef, useState } from 'react';
 import html2canvas from 'html2canvas';
+import QRCodeLib from 'qrcode';
 import { useApp } from '../store';
 
-function QRCode() {
-  return (
-    <svg viewBox="0 0 56 56" width="36" height="36">
-      <rect width="56" height="56" fill="#fff" />
-      <rect x="5" y="5" width="18" height="18" rx="2" fill="#333" />
-      <rect x="8" y="8" width="12" height="12" rx="1" fill="#fff" />
-      <rect x="11" y="11" width="6" height="6" fill="#333" />
-      <rect x="33" y="5" width="18" height="18" rx="2" fill="#333" />
-      <rect x="36" y="8" width="12" height="12" rx="1" fill="#fff" />
-      <rect x="39" y="11" width="6" height="6" fill="#333" />
-      <rect x="5" y="33" width="18" height="18" rx="2" fill="#333" />
-      <rect x="8" y="36" width="12" height="12" rx="1" fill="#fff" />
-      <rect x="11" y="39" width="6" height="6" fill="#333" />
-      <circle cx="28" cy="28" r="3" fill="#333" />
-    </svg>
-  );
+function QRCodeImg() {
+  const [src, setSrc] = useState<string | null>(null);
+
+  useEffect(() => {
+    QRCodeLib.toDataURL('https://tennislv.app', {
+      width: 120,
+      margin: 1,
+      color: { dark: '#000', light: '#fff' },
+    }).then(setSrc).catch(() => { /* fallback: no QR shown */ });
+  }, []);
+
+  if (!src) return null;
+  return <img src={src} width="44" height="44" alt="扫码测测你的业余网球评级" />;
 }
 
 export function Poster() {
@@ -73,7 +71,7 @@ export function Poster() {
         <div className="ps-url">tennislv.app</div>
         <div className="ps-cta">发给球友认证：偏低 / 准 / 偏高</div>
         <div className="ps-qr-area">
-          <div className="ps-qr"><QRCode /></div>
+          <div className="ps-qr"><QRCodeImg /></div>
           <span className="ps-qr-hint">扫码测测你的业余网球评级</span>
         </div>
       </div>
