@@ -336,46 +336,41 @@ body {
 
 /* 球场寄语 */
 .sc-court {
-  text-align: center; padding: 28px 8px;
-  margin: 16px 0;
+  text-align: center; padding: 32px 12px;
+  margin: 20px 0;
   background: linear-gradient(180deg, rgba(7,193,96,.03) 0%, rgba(7,193,96,.06) 50%, rgba(7,193,96,.03) 100%);
   border-radius: 12px;
   position: relative;
 }
 .sc-court::before {
   content: '';
-  position: absolute; top: 0; left: 20%; right: 20%;
-  height: 1px; background: linear-gradient(90deg, transparent, var(--gl), transparent);
+  position: absolute; top: 0; left: 25%; right: 25%;
+  height: 1px; background: linear-gradient(90deg, transparent, rgba(7,193,96,.15), transparent);
 }
 .sc-court::after {
   content: '';
-  position: absolute; bottom: 0; left: 20%; right: 20%;
-  height: 1px; background: linear-gradient(90deg, transparent, var(--gl), transparent);
+  position: absolute; bottom: 0; left: 25%; right: 25%;
+  height: 1px; background: linear-gradient(90deg, transparent, rgba(7,193,96,.15), transparent);
 }
 .sc-court-cn {
-  font-size: 18px; font-weight: 600; color: var(--t);
-  line-height: 1.6; letter-spacing: .5px;
-  max-width: 18em; margin: 0 auto;
+  font-size: 20px; font-weight: 600; color: var(--t);
+  line-height: 1.7; letter-spacing: 1px;
+  max-width: 16em; margin: 0 auto;
 }
 .sc-court-en {
   font-size: 14px; font-style: italic; font-weight: 400;
-  color: var(--t3); margin-top: 10px;
+  color: var(--t3); margin-top: 12px;
   line-height: 1.5; max-width: 22em; margin-left: auto; margin-right: auto;
 }
 
 .sc-cta {
   text-align: center; font-size: 16px; font-weight: 600; color: var(--t);
-  padding: 14px 0 6px; margin-top: 4px;
-}
-.sc-peer-hint {
-  text-align: center; font-size: 13px; color: var(--t3);
-  padding: 2px 0 8px;
+  padding: 18px 0 8px;
 }
 .sc-domain {
-  text-align: center; font-size: 13px; font-weight: 500; color: var(--t2);
+  text-align: center; font-size: 13px; font-weight: 500; color: var(--t3);
   padding: 8px 0 2px; letter-spacing: .3px;
 }
-.sc-footer { text-align: center; font-size: 11px; color: var(--t4); padding-top: 4px; padding-bottom: 4px; line-height: 1.5; }
 
 /* ── Peer Verify ── */
 .pv-card {
@@ -466,16 +461,16 @@ body {
 .ps-tags { display: none; }
 .ps-tag { background: rgba(255,255,255,.15); padding: 5px 14px; border-radius: 14px; font-size: 13px; }
 .ps-court {
-  text-align: center; padding: 20px 8px; margin: 0 0 10px;
+  text-align: center; padding: 24px 12px; margin: 8px 0 16px;
   position: relative; z-index: 1;
 }
 .ps-court-cn {
-  font-size: 18px; font-weight: 600; opacity: .95;
-  line-height: 1.6; letter-spacing: .5px;
+  font-size: 20px; font-weight: 600; opacity: .95;
+  line-height: 1.7; letter-spacing: 1px;
 }
 .ps-court-en {
   font-size: 13px; font-style: italic; font-weight: 400;
-  opacity: .65; margin-top: 8px; line-height: 1.5;
+  opacity: .6; margin-top: 10px; line-height: 1.5;
 }
 .ps-comment { font-size: 13px; opacity: .75; text-align: center; padding: 0 4px 14px; line-height: 1.5; position: relative; z-index: 1; }
 .ps-divider { height: 1px; background: rgba(255,255,255,.15); margin: 0 0 14px; position: relative; z-index: 1; }

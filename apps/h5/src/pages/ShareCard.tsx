@@ -37,11 +37,7 @@ export function ShareCard() {
 
         {/* CTA */}
         <div className="sc-cta">我测出来是 {r.aiEstimatedLevel}，你觉得准吗？</div>
-        <div className="sc-peer-hint">发给球友认证：偏低 / 准 / 偏高</div>
-
-        {/* Footer */}
         <div className="sc-domain">tennislv.app</div>
-        <div className="sc-footer">AI 预估评级，非官方 NTRP / UTR 评级</div>
       </div>
 
       <div className="r-actions" style={{ marginTop: 12 }}>

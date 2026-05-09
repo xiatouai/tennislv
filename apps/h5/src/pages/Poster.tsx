@@ -70,9 +70,6 @@ export function Poster() {
         </div>
       </div>
 
-      <div className="ps-disclaimer">
-        本评级参考 NTRP 能力描述生成，不等同于 USTA 官方 NTRP、UTR 或赛事评级。
-      </div>
     </div>
   );
 
