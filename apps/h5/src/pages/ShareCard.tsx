@@ -74,6 +74,9 @@ export function ShareCard() {
       </div>
 
       <div className="r-actions" style={{ marginTop: 12 }}>
+        <div className="helper-text" style={{ textAlign: 'center', marginBottom: 10 }}>
+          点击右上角 ··· 分享给球友或朋友圈
+        </div>
         <button className="btn btn-primary" onClick={() => goTo('poster')}>
           分享海报
         </button>

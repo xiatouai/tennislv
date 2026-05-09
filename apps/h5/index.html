@@ -3,7 +3,53 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover" />
-    <title>TennisLV 业余网球评级 — NTRP 风格等级</title>
+    <title>TennisLV｜业余网球评级</title>
+
+    <!-- Open Graph (WeChat, Facebook, LINE, etc.) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="TennisLV｜业余网球评级" />
+    <meta property="og:description" content="测一测你的网球水平，看看你是 2.5、3.0 还是 3.5" />
+    <meta property="og:image" content="https://tennislv.app/share-cover.svg" />
+    <meta property="og:url" content="https://tennislv.app" />
+    <meta property="og:site_name" content="TennisLV" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="TennisLV｜业余网球评级" />
+    <meta name="twitter:description" content="测一测你的网球水平，看看你是 2.5、3.0 还是 3.5" />
+    <meta name="twitter:image" content="https://tennislv.app/share-cover.svg" />
+
+    <!-- WeChat JS-SDK placeholder — requires back-end signature API before enabling -->
+    <!--
+    <script src="https://res.wx.qq.com/open/js/jweixin-1.6.0.js"></script>
+    <script>
+      (async function () {
+        try {
+          const resp = await fetch('/api/wechat/js-signature?url=' + encodeURIComponent(location.href.split('#')[0]));
+          const cfg = await resp.json();
+          wx.config({
+            debug: false,
+            appId: cfg.appId,
+            timestamp: cfg.timestamp,
+            nonceStr: cfg.nonceStr,
+            signature: cfg.signature,
+            jsApiList: ['updateAppMessageShareData', 'updateTimelineShareData'],
+          });
+          wx.ready(function () {
+            const share = {
+              title: 'TennisLV｜业余网球评级',
+              desc: '测一测你的网球水平，看看你是 2.5、3.0 还是 3.5',
+              link: 'https://tennislv.app',
+              imgUrl: 'https://tennislv.app/share-cover.svg',
+            };
+            wx.updateAppMessageShareData(share);
+            wx.updateTimelineShareData(share);
+          });
+        } catch (e) { console.warn('WeChat JS-SDK init skipped:', e.message); }
+      })();
+    </script>
+    -->
+
     <style>
       /* Critical above-fold styles to prevent FOUC */
       body { margin: 0; background: #f6f6f6; font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", sans-serif; }
