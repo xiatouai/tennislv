@@ -8,7 +8,7 @@ OG（Open Graph）meta 标签已配置在 `apps/h5/index.html`，微信内置浏
 |------|-----|
 | og:title | TennisLV｜业余网球评级 |
 | og:description | 测一测你的网球水平，看看你是 2.5、3.0 还是 3.5 |
-| og:image | https://tennislv.app/share-cover.svg |
+| og:image | https://tennislv.app/share-cover.png (500×500) |
 | og:url | https://tennislv.app |
 
 如需动态分享卡片（结果页展示个性化评级），需要接入微信 JS-SDK。
