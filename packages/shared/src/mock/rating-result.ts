@@ -31,14 +31,12 @@ function snapToHalfLevel(value: number): string {
 }
 
 function calculateFinalLevel(answers: RatingAnswer[]): number {
-  const q1Anchor = getScore('q1', answers); // 1.0-5.0
+  const q1Anchor = getScore('q1', answers); // 1.0-4.0
   const techAvg = getTechAverage(answers);  // 1-4 scale
 
-  // Normalize Q1 anchor to 1-4 scale: map 1.0→1, 5.0→4
-  const q1Norm = 1 + ((q1Anchor - 1.0) / 4.0) * 3;
-
+  // Q1 anchor is already on 1-4 scale (matching tech skill range)
   // Adjust anchor based on tech skill deviation
-  const diff = techAvg - q1Norm;
+  const diff = techAvg - q1Anchor;
   return q1Anchor + diff * 0.4;
 }
 
@@ -158,6 +156,19 @@ function getFocusArea(dims: DimensionScore[], level: string): string {
   return adviceMap[weakest.dimension] || `想从 ${level} 迈向 ${nextLevel}，建议持续提升各项技术和比赛能力。`;
 }
 
+const CTA_POOL = [
+  '我测出来是 {level}，你觉得准吗？',
+  '球友们看看，我这个 {level} 准不准？',
+  '求认证：这个评级偏高还是偏低？',
+];
+
+function getCtaText(level: string): string {
+  const levelNum = parseFloat(level) || 3.0;
+  // Deterministic selection based on level
+  const idx = Math.floor((levelNum - 1.0) / 2.0) % CTA_POOL.length;
+  return CTA_POOL[idx].replace('{level}', level);
+}
+
 function getSuitableRange(level: string): string {
   const base = parseFloat(level) || 3.0;
   const low = Math.max(1.0, base - 0.5);
@@ -177,7 +188,8 @@ function getConfidenceLabel(confidence: number): string {
 function getSelfAssessmentComparison(_level: number, answers: RatingAnswer[]): string {
   const q1Anchor = getScore('q1', answers);
   const techAvg = getTechAverage(answers);
-  const techNorm = 1 + ((techAvg - 1) / 3) * 4; // map 1-4 back to 1-5 scale
+  // Both are on 1-4 scale, directly comparable
+  const techNorm = techAvg;
 
   const diff = q1Anchor - techNorm;
   if (Math.abs(diff) <= 0.3) {
@@ -280,7 +292,11 @@ export function mockRatingResult(
   ratingType: RatingType = 'questionnaire_estimate',
 ): RatingResult {
   const rawLevel = calculateFinalLevel(answers);
-  const level = snapToHalfLevel(rawLevel);
+  let level = snapToHalfLevel(rawLevel);
+  // Questionnaire-only estimate caps at 4.0; 4.5+ requires video/peer/coach verification
+  if (ratingType === 'questionnaire_estimate' && parseFloat(level) > 4.0) {
+    level = '4.0';
+  }
 
   // Confidence: based on rating type + answer consistency
   const techAvg = getTechAverage(answers);
@@ -334,6 +350,7 @@ export function mockRatingResult(
     focusArea: getFocusArea(dimsResult, level),
     courtMessage: courtMsg.cn,
     courtMessageEn: courtMsg.en,
+    ctaText: getCtaText(level),
     generatedAt: new Date().toISOString(),
   };
 

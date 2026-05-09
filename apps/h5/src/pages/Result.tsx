@@ -113,7 +113,7 @@ export function Result() {
         className="r-detail-toggle"
         onClick={() => setShowDetail(!showDetail)}
       >
-        查看详细技术分析
+        查看详细评级依据
         <span className={`r-detail-arrow${showDetail ? ' open' : ''}`}>▾</span>
       </button>
 
@@ -140,13 +140,37 @@ export function Result() {
         {DESC_MAP[r.ratingType] || DESC_MAP.questionnaire_estimate}
       </div>
 
+      {/* 球友认证预览 */}
+      <div className="card" style={{ marginTop: 12 }}>
+        <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 8, color: 'var(--t)' }}>球友认证</div>
+        <div style={{ display: 'flex', justifyContent: 'center', gap: 12 }}>
+          <span style={{ fontSize: 13, color: 'var(--t3)' }}>偏低了</span>
+          <span style={{ fontSize: 20, fontWeight: 700, color: 'var(--t2)' }}>
+            {state.peerVotes.filter(v => v.vote === 'underrated').length}
+          </span>
+          <span style={{ fontSize: 13, color: 'var(--g)' }}>差不多</span>
+          <span style={{ fontSize: 20, fontWeight: 700, color: 'var(--g)' }}>
+            {state.peerVotes.filter(v => v.vote === 'agree').length}
+          </span>
+          <span style={{ fontSize: 13, color: 'var(--t3)' }}>偏高了</span>
+          <span style={{ fontSize: 20, fontWeight: 700, color: 'var(--t2)' }}>
+            {state.peerVotes.filter(v => v.vote === 'overrated').length}
+          </span>
+        </div>
+        {state.peerVotes.length === 0 && (
+          <div style={{ textAlign: 'center', fontSize: 12, color: 'var(--t4)', marginTop: 8 }}>
+            暂无球友认证，点击下方按钮邀请球友
+          </div>
+        )}
+      </div>
+
       {/* Actions */}
       <div className="r-actions">
         <button className="btn btn-primary" onClick={() => goTo('share')}>
           生成分享卡
         </button>
         <button className="btn btn-outline" onClick={() => goTo('verify')}>
-          邀请球友认证
+          发给球友看看准不准
         </button>
         {r.ratingType === 'questionnaire_estimate' && (
           <div className="text-link" onClick={() => goTo('video')}>
@@ -156,8 +180,8 @@ export function Result() {
         <div className="text-link" onClick={resetAll}>
           重新评级
         </div>
-        <div className="text-link" onClick={() => goTo('feedback')}>
-          反馈评级是否准确
+        <div className="text-link" onClick={() => { window.location.href = 'https://wj.qq.com/s2/26606149/5bb4/'; }}>
+          觉得评级不准？点这里反馈
         </div>
       </div>
     </div>

@@ -25,7 +25,7 @@ export function Video() {
               当前内测阶段，视频增强评级为演示功能，正式版将基于视频抽帧和模型分析生成。
             </div>
             <button className="btn btn-primary" onClick={videoEnhance}>
-              开始视频增强评级
+              上传视频增强评级
             </button>
           </div>
         </>
@@ -42,13 +42,13 @@ export function Video() {
 
       <div style={{ marginTop: 16 }}>
         <button className="btn btn-primary" onClick={submitRating}>
-          {state.hasVideo ? '跳过视频分析，直接生成评级' : '跳过，直接生成评级'}
+          先看问卷评级
         </button>
       </div>
 
       {!state.hasVideo && (
         <div className="v-skip" onClick={submitRating}>
-          暂不上传，看看问卷预估结果 →
+          先看问卷评级 →
         </div>
       )}
 

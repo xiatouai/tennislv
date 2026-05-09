@@ -180,6 +180,8 @@ export interface RatingResult {
   courtMessage: string;
   /** 球场寄语（英文） */
   courtMessageEn: string;
+  /** 分享卡 CTA 文案 */
+  ctaText: string;
 }
 
 /** 评级提交请求 */

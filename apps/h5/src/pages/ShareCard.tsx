@@ -7,7 +7,7 @@ export function ShareCard() {
 
   return (
     <div className="page page-safe fade-in" style={{ paddingBottom: 40 }}>
-      {/* 身份卡 */}
+      {/* 身份卡预览 */}
       <div className="sc-card">
         {/* Header */}
         <div className="sc-header">
@@ -36,20 +36,22 @@ export function ShareCard() {
         </div>
 
         {/* CTA */}
-        <div className="sc-cta">我测出来是 {r.aiEstimatedLevel}，你觉得准吗？</div>
+        <div className="sc-cta">{r.ctaText}</div>
         <div className="sc-domain">tennislv.app</div>
       </div>
 
+      {/* Share actions */}
       <div className="r-actions" style={{ marginTop: 12 }}>
-        <div className="helper-text" style={{ textAlign: 'center', marginBottom: 10 }}>
-          点击右上角 ··· 分享给球友或朋友圈
+        <button className="btn btn-primary" onClick={() => goTo('verify')}>
+          发给球友看看准不准
+        </button>
+        <button className="btn btn-outline" onClick={() => goTo('poster')} style={{ marginTop: 8 }}>
+          生成海报图片
+        </button>
+        <div className="share-hint">
+          点击右上角 ··· 可分享链接卡片给好友。海报图片需保存后发朋友圈或微信群。
         </div>
-        <button className="btn btn-primary" onClick={() => goTo('poster')}>
-          分享海报
-        </button>
-        <button className="btn btn-outline" onClick={() => goTo('verify')} style={{ marginTop: 8 }}>
-          邀请球友认证
-        </button>
+        {/* WeChat JS-SDK reserved for future custom share card config */}
         <div className="text-link" onClick={() => goTo('result')}>
           ← 返回评级结果
         </div>

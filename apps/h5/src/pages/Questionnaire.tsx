@@ -10,14 +10,15 @@ export function Questionnaire() {
   const answeredCount = state.answers.length;
   const totalCount = RATING_QUESTIONS.length;
   const progressPct = ((state.currentQ + 1) / totalCount) * 100;
+  const hasSelected = !!prev;
 
   const handleNext = () => {
-    if (!state.answers.find(a => a.questionId === q.id)) {
+    if (!hasSelected) {
       toast('请先选择一个选项');
       return;
     }
     if (isLast) {
-      goTo('video');
+      goTo('choose');
     } else {
       nextQ();
     }
@@ -47,31 +48,39 @@ export function Questionnaire() {
         </div>
       )}
 
-      {/* Question card */}
-      <div className="q-card">
-        <div className="q-text">{state.currentQ + 1}. {q.text}</div>
+      {/* Scrollable content with bottom padding to clear sticky button */}
+      <div className="q-scroll-area">
+        {/* Question card */}
+        <div className="q-card">
+          <div className="q-text">{state.currentQ + 1}. {q.text}</div>
 
-        {q.options.map(o => (
-          <button
-            key={o.value}
-            className={`q-option${prev && prev.value === o.value ? ' selected' : ''}${o.description ? ' has-desc' : ''}`}
-            onClick={() => setAnswer(q.id, o.value)}
-          >
-            <span className="q-opt-label">
-              {o.label}
-              <span className="q-check">✓</span>
-            </span>
-            {o.description && (
-              <span className="q-opt-desc">{o.description}</span>
-            )}
-          </button>
-        ))}
+          {q.options.map(o => (
+            <button
+              key={o.value}
+              className={`q-option${prev && prev.value === o.value ? ' selected' : ''}${o.description ? ' has-desc' : ''}`}
+              onClick={() => setAnswer(q.id, o.value)}
+            >
+              <span className="q-opt-label">
+                {o.label}
+                <span className="q-check">✓</span>
+              </span>
+              {o.description && (
+                <span className="q-opt-desc">{o.description}</span>
+              )}
+            </button>
+          ))}
 
-        <div className="q-hint">请选择最接近你真实表现的一项</div>
+          <div className="q-hint">请选择最接近你真实表现的一项</div>
+        </div>
+
+        {/* Disclaimer */}
+        <div className="home-footer">
+          本评级参考 NTRP 能力描述生成，不等同于 USTA 官方 NTRP、UTR 或赛事评级。
+        </div>
       </div>
 
-      {/* Navigation */}
-      <div className="q-nav">
+      {/* Fixed bottom navigation */}
+      <div className="q-fixed-nav">
         <button
           className="btn btn-outline"
           disabled={isFirst}
@@ -79,14 +88,12 @@ export function Questionnaire() {
         >
           上一题
         </button>
-        <button className="btn btn-primary" onClick={handleNext}>
-          {isLast ? '查看结果' : '下一题'}
+        <button
+          className={`btn btn-primary${!hasSelected ? ' q-btn-disabled' : ''}`}
+          onClick={handleNext}
+        >
+          {hasSelected ? (isLast ? '查看结果' : '下一题') : '请选择一项'}
         </button>
-      </div>
-
-      {/* Disclaimer */}
-      <div className="home-footer" style={{ marginTop: 16 }}>
-        本评级参考 NTRP 能力描述生成，不等同于 USTA 官方 NTRP、UTR 或赛事评级。
       </div>
     </div>
   );

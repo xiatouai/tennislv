@@ -1,6 +1,7 @@
 import { AppProvider, useApp } from './store';
 import { Home } from './pages/Home';
 import { Questionnaire } from './pages/Questionnaire';
+import { ChoosePath } from './pages/ChoosePath';
 import { Video } from './pages/Video';
 import { Analyzing } from './pages/Analyzing';
 import { Result } from './pages/Result';
@@ -18,6 +19,7 @@ function PageRouter() {
   switch (page) {
     case 'home': return <Home />;
     case 'questionnaire': return <Questionnaire />;
+    case 'choose': return <ChoosePath />;
     case 'video': return <Video />;
     case 'analyzing': return <Analyzing />;
     case 'result': return <Result />;

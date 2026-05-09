@@ -48,18 +48,6 @@ export const RATING_QUESTIONS: RatingQuestion[] = [
         description: '能稳定且有计划地打出战术型网球，发球具备攻击性，能根据对手弱点调整策略。',
         scoreValue: 4.0,
       },
-      {
-        value: 'h',
-        label: '高水平业余',
-        description: '技术全面，体能良好，战术成熟，能在高水平业余比赛中形成竞争力。',
-        scoreValue: 4.5,
-      },
-      {
-        value: 'i',
-        label: '准专业水平',
-        description: '比赛经验丰富，技术、脚步和心理成熟，能稳定控制高强度比赛节奏。',
-        scoreValue: 5.0,
-      },
     ],
   },
 

@@ -31,7 +31,7 @@ interface AppContextValue {
   resetAll: () => void;
 }
 
-export type Page = 'home' | 'questionnaire' | 'video' | 'analyzing' | 'result' | 'share' | 'verify' | 'poster' | 'feedback' | 'standard' | 'privacy' | 'terms' | 'disclaimer';
+export type Page = 'home' | 'questionnaire' | 'choose' | 'video' | 'analyzing' | 'result' | 'share' | 'verify' | 'poster' | 'feedback' | 'standard' | 'privacy' | 'terms' | 'disclaimer';
 
 const genId = () => Math.random().toString(36).slice(2, 10);
 
